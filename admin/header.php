@@ -16,7 +16,7 @@
 				</li>
 				<li>
 					<a href="produit_liste.php">
-						<span class="glyphicon glyphicon-flag"> </span> produit
+						<span class="glyphicon glyphicon-flag"> </span> Produits
 					</a>
 				</li>
 			</ul>

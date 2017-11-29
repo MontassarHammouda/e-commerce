@@ -42,7 +42,7 @@
 								<div class="single-products">
 										<div class="productinfo text-center">
 											<img src="./upload/<?php echo $data->_image  ?>" alt="" />
-											<a href="produits.php" class="btn btn-default add-to-cart"><?php echo $data->_libelle ?></a>
+											<a href="produits.php?id=<?php echo $data->_id ?>" class="btn btn-default add-to-cart"><?php echo $data->_libelle ?></a>
 										</div>
 								</div>
 							</div>

@@ -5,9 +5,8 @@ require_once("../classes/Categorie.php");
 
 if( !empty($id) ) {
 	require_once("../classes/Produit.php");
-  
-	$cat= new produit();
-	$cat = $cat->details($id);
+  $pat= new produit();
+	$pat = $pat->details($id);
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -46,7 +45,7 @@ if( !empty($id) ) {
           Libellé :<span style="color:red;">*</span>            
         </th>
         <td>
-          <input required type="text" name="libelle" id="libelle" validate="required" value="<?php echo @($cat->_libelle); ?>" />
+          <input required type="text" name="libelle" id="libelle" validate="required" value="<?php echo @($pat->_libelle); ?>" />
         </td>
       </tr>
 
@@ -56,7 +55,7 @@ if( !empty($id) ) {
           Image actuelle :           
         </th>
         <td>  
-          <img src="../upload/<?php echo $cat->_image; ?>" width="150" /> 
+          <img src="../upload/<?php echo $pat->_image; ?>" width="150" /> 
         </td>
       </tr>
       <?php } ?>
@@ -69,23 +68,34 @@ if( !empty($id) ) {
         <tr>
         <th>
           prix: <span style="color:red;">*</span>            </th>
-          <td><input type="text" name="prix" id="prix" /></td>
+          <td><input type="text" name="prix" id="prix" value="<?php echo @($pat->_prix); ?>" /></td>
         </tr>
         <tr>
         <th>
-          categorie : <span style="color:red;">*</span>            
+          Catégorie : <span style="color:red;">*</span>            
           </th>
           <td>
+
           <select name="idcategorie">
            <?php 
 
-                    $cat = new Categorie(); 
-                    $liste = $cat->liste();
+                    $categ = new Categorie(); 
+                    $liste = $categ->liste();
                     foreach($liste as $data )
-                    {?>
-            <option selected value="<?php $data->_id ;?>">
+                    {
+                      if(isset($id)&&($data->_id==$pat->_id)){?>
+                        <option 
+            selected
+             value="<?php echo $data->_id ;?>">
              <?php echo $data->_libelle ; ?>
+            </option><?php } ?>
+                        
+            <option 
+            
+             value="<?php echo $data->_id ;?>"><?php echo $data->_libelle ; ?>
+             
             </option>
+            
             
             <?php }?>
              </select>
@@ -93,17 +103,18 @@ if( !empty($id) ) {
         </tr>
 
         <tr>
+
           <th>Description :<span style="color:red;">*</span> </th>
           <td>
             <textarea required name="description" class="textarea" style="width: 810px; height: 200px" >
-             <?php echo @$cat->_description; ?>
+             <?php echo @$pat->_description; ?>
            </textarea>
          </td>
        </tr>
 
 
      </table>
-
+     
      <?php if( !empty($id) ) { ?>
      <input type="hidden" name="id" value="<?php echo $id; ?>" />
      <?php } ?>

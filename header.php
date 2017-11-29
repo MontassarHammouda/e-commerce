@@ -1,3 +1,5 @@
+    <?php
+session_start();?>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -21,7 +23,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="panier.php"><i class="fa fa-shopping-cart"></i> Panier (0)</a></li>
+								<li><a href="panier.php"><i class="fa fa-shopping-cart"></i> Panier (<?php echo count($_SESSION['panier'])?>)</a></li>
 							</ul>
 						</div>
 					</div>

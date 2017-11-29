@@ -67,10 +67,35 @@ class Produit extends Mysql
 		return $list_pat;
 	}
 	
+
+
+
+	public function liste_par_categorie($id_categorie)
+	{
+		$q = "SELECT * FROM produit WHERE id_categorie=$id_categorie ORDER BY libelle";
+		$list_pat = array(); // Tableau VIDE
+		$res = $this->requete($q);
+		while($row = mysqli_fetch_array( $res)){
+			$pat = new Produit();
+		
+		$pat->_id 			= $row['id'];
+		$pat->_libelle 		= $row['libelle'];
+		$pat->_image 		= $row['image'];
+		$pat->_description	= $row['description'];
+		$pat->_prix		 = $row['prix'];
+		$pat->_idcategorie = $row['id_categorie'];
+	
+		
+		
+			$list_pat[]=$pat;
+		}
+		
+		return $list_pat;
+	}
 	public function ajouter()
 	{
 	    $q = "INSERT INTO produit(id, libelle,description,prix,image,id_categorie) VALUES 
-	  		(  null				, '$this->_libelle'	, '$this->_description'	,'$this->_prix','$this->_image'	,'$this->_idcategorie'
+	  		(  null				, '$this->_libelle'	, '$this->_description'	,'$this->_prix','$this->_image'	,$this->_idcategorie
 			      
 			)";
 		$res = $this->requete($q);
@@ -81,7 +106,9 @@ class Produit extends Mysql
 		$q = "UPDATE produit SET
 			  libelle 	= '$this->_libelle',
 			  image = IF('$this->_image' = '', image, '$this->_image') ,
-			  description = '$this->_description','$this->_prix','$this->_idcategorie'
+			  description = '$this->_description',
+			  prix ='$this->_prix',
+			  id_categorie='$this->_idcategorie'
 
 			  WHERE id = '$this->_id' ";
 	  
@@ -89,7 +116,7 @@ class Produit extends Mysql
 		return $res;
 	}
 
-	public function supprimer($id){
+	public function supprimer($id){	
 		$q = "DELETE FROM produit WHERE id = '$id'";
 		$res = $this->requete($q);
 		return $res;
